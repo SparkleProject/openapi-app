@@ -83,11 +83,11 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/lightspeed-store-api.yml
+                                ${project.basedir}/src/main/resources/lintech-store-api.yml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.lightspeed.openapi.api</apiPackage>
-                            <modelPackage>com.lightspeed.openapi.dto</modelPackage>
+                            <apiPackage>com.lintech.openapi.api</apiPackage>
+                            <modelPackage>com.lintech.openapi.dto</modelPackage>
                             <supportingFilesToGenerate>
                                 ApiUtil.java
                             </supportingFilesToGenerate>
