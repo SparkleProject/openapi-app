@@ -26,7 +26,7 @@ mvn clean install
 ```
 * Run the application
 ```
-java -jar practical-test-eric-lin-0.0.1-SNAPSHOT.jar 
+java -jar openapi-app-0.0.1-SNAPSHOT.jar 
 ```
 * Test the api application from local: http://localhost:8080/swagger-ui/index.html#
 * 

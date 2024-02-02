@@ -95,7 +95,7 @@
                                 <delegatePattern>true</delegatePattern>
                             </configOptions>
                         </configuration>
-                    </execution>
+                    </execution>l
                 </executions>
             </plugin>
         </plugins>
