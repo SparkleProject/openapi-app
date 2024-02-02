@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Store Server based on the OpenAPI 3.0 specification.
+  version: 1.0.11
+servers:
+      - url: http://localhost:{port}/api
+tags:
+    - name: products
+      description: Access to store products
+    - name: sales
+      description: Access to store sales
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      description: Returns a list of products that can be sold
+      operationId: getProducts
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid status value
+        '401':
+          description: Not authenticated
+        '403':
+            description: Access token does not have the required scope
+      security:
+        - api_key: []
+    post:
+      tags:
+        - products
+      description: create a new product int the store
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '405':
+          description: Invalid input
+  /sales:
+    post:
+      tags:
+        - sales
+      description: create sales int the store
+      operationId: placeSales
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesSummary'
+        '405':
+          description: Invalid input
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name
+        - price
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Mixing Bowl
+        price:
+          type: number
+          format: currency
+          minimum: 0
+          example: 49.00
+    SaleItem:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          format: int64
+          example: 1001
+        name:
+          type: string
+        quantity:
+          type: integer
+          format: int64
+          example: 2
+        discount:
+          type: string
+          example: 10%
+    Sale:
+      type: object
+      required:
+        - lineItems
+      properties:
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleItem'
+        discount:
+          type: number
+          format: currency
+          minimum: 0
+          maximum: 100
+          default: 0
+          example: 10
+    SalesSummary:
+      type: object
+      properties:
+        sale:
+          $ref: '#/components/schemas/Sale'
+          additionalProperties:
+        totalItems:
+          type: integer
+          format: int64
+          example: 10
+        totalPrice:
+          type: number
+          format: currency
+          example: 490.50
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
